@@ -204,7 +204,7 @@ $limit=20000;
             $extra = 0;
             while ($row2 = $result2->fetch_assoc()) {
                 $text_danger=$row2['total_expense']>=$limit? 'text-danger':'';
-                echo "<tr><td>" . date('M Y',strtotime($row2["month"])) . "</td><td>" . $row2['extra_expense'] . "</td><td class='".$text_danger."'>" . $row2['total_expense'] . "</td></tr>";
+                echo "<tr><td>" . date('M Y',strtotime($row2["month"])) . "</td><td>" . $row2['extra_expense'] . "/-</td><td class='".$text_danger."'>" . $row2['total_expense'] . "/-</td></tr>";
             }
 
             echo "</tbody></table>";
