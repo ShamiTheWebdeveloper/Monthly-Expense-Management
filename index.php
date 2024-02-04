@@ -104,9 +104,12 @@ $limit=20000;
    <div class="m-3">
        <h3 class="text-center">My Monthly Expenses</h3>
    </div>
+        <div class="my-2">
+            <button class="btn btn-warning" onclick="all_mon()" style="float: right;">Months total expenses</button>
+            <button type="button" class="btn btn-primary mx-2 " style="float: right;"  data-bs-toggle="modal" data-bs-target="#addModal">Add New</button>
+        </div>
+   <div class="my-1">
 
-   <div class="my-5">
-       <button type="button" class="btn btn-primary my-3 text-left" style="float: right;"  data-bs-toggle="modal" data-bs-target="#addModal">Add New</button>
        <table class="table table-hover">
            <thead>
            <tr>
@@ -128,11 +131,11 @@ $limit=20000;
            <tr>
                <td><?= $num ?></td>
                <td><?= $row['name'] ?></td>
-               <td class="<?= $row['extra']==1 ? 'text-danger':'' ?>"><?= $row['price'].' /-' ?></td>
+               <td class="<?= $row['extra']==1 ? 'text-danger':'' ?>"><?= $row['price'].'/-' ?></td>
                <td><?= date('D, d M Y',strtotime($row['date'])) ?></td>
                <td>
                    <button type="button" class="btn btn-info" onclick="editrecord(<?= $row['id'] ?>)" data-bs-toggle="modal"  data-bs-target="#editModal">Edit</button>
-                   <a href="expense_action.php?action=delete&&id=<?= $row['id'] ?>" class="btn btn-danger">Delete</a>
+                   <a onclick=" confirm('Are you sure you want to delete?')? href='expense_action.php?action=delete&&id=<?= $row['id'] ?>':''" class="btn btn-danger">Delete</a>
                </td>
 
            </tr>
@@ -169,7 +172,7 @@ $limit=20000;
    </div>
 
     <div>
-        <button class="btn btn-warning" onclick="all_mon()" style="float: right;">Months total expenses</button>
+
     </div>
         <div>
 
