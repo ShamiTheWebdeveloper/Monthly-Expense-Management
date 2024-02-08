@@ -122,7 +122,7 @@ $limit=20000;
            </thead>
            <tbody>
            <?php
-            $sql=mysqli_query($connection,"select * from expenses WHERE date BETWEEN DATE_FORMAT(NOW(), '%Y-%m-01') AND LAST_DAY(NOW())");
+            $sql=mysqli_query($connection,"select * from expenses WHERE date BETWEEN DATE_FORMAT(NOW(), '%Y-%m-01') AND LAST_DAY(NOW()) ORDER BY date");
             $num=1;
             $total=0;
             $total_extra=0;
