@@ -9,7 +9,6 @@ $limit=20000;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
 
 </head>
@@ -111,7 +110,7 @@ $limit=20000;
         </div>
    <div class="my-2">
 
-       <table id="" class="table table-hover myTable">
+       <table id="myTable" class="table table-hover myTable">
            <thead>
            <tr>
                <th>No.</th>
@@ -135,7 +134,7 @@ $limit=20000;
                <td class="<?= $row['extra']==1 ? 'text-danger':'' ?>"><?= $row['price'] ?></td>
                <td><?= date('D, d M Y',strtotime($row['date'])) ?></td>
                <td>
-                   <button type="button" class="btn btn-info" onclick="editrecord(<?= $row['id'] ?>)" data-bs-toggle="modal"  data-bs-target="#editModal">Edit</button>
+                   <button type="button" class="btn btn-info" onclick="editRecord(<?= $row['id'] ?>)" data-bs-toggle="modal"  data-bs-target="#editModal">Edit</button>
                    <a onclick=" confirm('Are you sure you want to delete?')? href='expense_action.php?action=delete&&id=<?= $row['id'] ?>':''" class="btn btn-danger">Delete</a>
                </td>
 
@@ -221,23 +220,24 @@ $limit=20000;
     </div>
 </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 <script>
          let expense_id;
-        function editrecord(expense_id) {
+        function editRecord(expense_id) {
             $.ajax({
                 url:"expense_action.php?action=edit",
                 type:"post",
                 data:{expense_id:expense_id},
                 success:function (data) {
-                    let rowData = JSON.parse(data);
+                    let editData = JSON.parse(data);
                     let extra=$('#extra');
-                    $('#id').val(rowData.id);
-                    $('#name').val(rowData.name);
-                    $('#price').val(rowData.price);
-                    $('#date').val(rowData.date);
-                    rowData.extra == 1 ? extra.prop('checked', true) : extra.prop('checked', false);
+                    $('#id').val(editData.id);
+                    $('#name').val(editData.name);
+                    $('#price').val(editData.price);
+                    $('#date').val(editData.date);
+                    parseInt(editData.extra) === 1 ? extra.prop('checked', true) : extra.prop('checked', false);
 
                 },
                 error: function (error) {
@@ -256,11 +256,13 @@ $limit=20000;
             one_month.show();
             all_month.hide();
         }
-
          $(document).ready( function () {
              $('.myTable').DataTable({
-                 column:[0],
-                 ignoreBOM:[0]
+              // "columnDefs": [
+              //        { "orderable": false, "targets": [4] }
+              //    ],
+                 "order": [[0, "desc"]]
+
              });
          } );
 
