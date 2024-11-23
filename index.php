@@ -1,6 +1,7 @@
 <?php
 $connection=mysqli_connect('localhost','root','','my_expense');
-$limit=20000;
+$limit=33000;
+date_default_timezone_set('Asia/Karachi');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -134,6 +135,7 @@ $limit=20000;
                <td class="<?= $row['extra']==1 ? 'text-danger':'' ?>"><?= $row['price'] ?></td>
                <td><?= date('D, d M Y',strtotime($row['date'])) ?></td>
                <td>
+                   <a href="expense_action.php?action=insert&name=<?= $row['name'] ?>&price=<?= $row['price'] ?>&extra=<?= $row['extra'] ?>" class="btn btn-warning">Copy</a>
                    <button type="button" class="btn btn-info" onclick="editRecord(<?= $row['id'] ?>)" data-bs-toggle="modal"  data-bs-target="#editModal">Edit</button>
                    <a onclick=" confirm('Are you sure you want to delete?')? href='expense_action.php?action=delete&&id=<?= $row['id'] ?>':''" class="btn btn-danger">Delete</a>
                </td>
