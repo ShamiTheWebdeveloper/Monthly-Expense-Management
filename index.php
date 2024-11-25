@@ -1,7 +1,5 @@
 <?php
-$connection=mysqli_connect('localhost','root','','my_expense');
-$limit=33000;
-date_default_timezone_set('Asia/Karachi');
+include 'config.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,11 +12,6 @@ date_default_timezone_set('Asia/Karachi');
 
 </head>
 <body>
-<!-- Button trigger modal -->
-<!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
-<!--    Launch demo modal-->
-<!--</button>-->
-
 <!-- Modal -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
