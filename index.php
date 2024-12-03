@@ -1,6 +1,4 @@
-<?php
-include 'config.php';
-?>
+<?php include 'config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,11 +34,15 @@ include 'config.php';
                      <input type="date" name="date" class="form-control">
                  </div>
                  <div class="my-3">
-                     <label>check if your expense is extra</label>
-                     <label>
-                         <input type="checkbox" name="extra" class="">
-                     </label>
+                     <label>Select Category:</label>
+                     <?= make_select(get_categories(),'category','','class="form-control"') ?>
                  </div>
+<!--                 <div class="my-3">-->
+<!--                     <label>check if your expense is extra</label>-->
+<!--                     <label>-->
+<!--                         <input type="checkbox" name="extra" class="">-->
+<!--                     </label>-->
+<!--                 </div>-->
              </div>
 
             <div class="modal-footer">
@@ -76,10 +78,12 @@ include 'config.php';
                         <input type="date" id="date" name="date" class="form-control">
                     </div>
                     <div class="my-3">
-                        <label>check if your expense is extra</label>
-                        <label>
-                            <input type="checkbox" id="extra" name="extra" >
-                        </label>
+                        <label>Select Category:</label>
+                        <?= make_select(get_categories(),'category','','class="form-control" id="category-select"') ?>
+<!--                        <label>check if your expense is extra</label>-->
+<!--                        <label>-->
+<!--                            <input type="checkbox" id="extra" name="extra" >-->
+<!--                        </label>-->
                     </div>
 
                 </div>
@@ -109,6 +113,7 @@ include 'config.php';
            <tr>
                <th>No.</th>
                <th>Name</th>
+               <th>Category</th>
                <th>Price</th>
                <th>Date</th>
                <th>Actions</th>
@@ -116,19 +121,21 @@ include 'config.php';
            </thead>
            <tbody>
            <?php
-            $sql=mysqli_query($connection,"select * from expenses WHERE date BETWEEN DATE_FORMAT(NOW(), '%Y-%m-01') AND LAST_DAY(NOW()) ORDER BY date");
+            $sql=mysqli_query($connection,$sql3="select e.id,e.category_id,e.price,e.date,e.name as e_name,c.name as c_name from expenses e left join categories c on e.category_id=c.id WHERE e.date BETWEEN DATE_FORMAT(NOW(), '%Y-%m-01') AND LAST_DAY(NOW()) ORDER BY e.date");
             $num=1;
             $total=0;
             $total_extra=0;
-            while ($row=mysqli_fetch_array($sql)){
+            while ($row=mysqli_fetch_array($sql)):
+                if ($row['c_name']=='' || $row['c_name']==null) $row['c_name']='Other';
            ?>
            <tr>
                <td><?= $num ?></td>
-               <td><?= $row['name'] ?></td>
-               <td class="<?= $row['extra']==1 ? 'text-danger':'' ?>"><?= $row['price'] ?></td>
+               <td><?= $row['e_name'] ?></td>
+               <td><?= $row['c_name'] ?></td>
+               <td><?= $row['price'] ?></td>
                <td><?= date('D, d M Y',strtotime($row['date'])) ?></td>
                <td>
-                   <a href="expense_action.php?action=insert&name=<?= $row['name'] ?>&price=<?= $row['price'] ?>&extra=<?= $row['extra'] ?>" class="btn btn-warning">Copy</a>
+                   <a href="expense_action.php?action=insert&name=<?= $row['e_name'] ?>&price=<?= $row['price'] ?>&category=<?= $row['category_id'] ?>" class="btn btn-warning">Copy</a>
                    <button type="button" class="btn btn-info" onclick="editRecord(<?= $row['id'] ?>)" data-bs-toggle="modal"  data-bs-target="#editModal">Edit</button>
                    <a onclick=" confirm('Are you sure you want to delete?')? href='expense_action.php?action=delete&&id=<?= $row['id'] ?>':''" class="btn btn-danger">Delete</a>
                </td>
@@ -141,7 +148,7 @@ include 'config.php';
                 $total +=$row['price'];
 
                 $num++;
-            }
+            endwhile;
            ?>
 
 
@@ -227,12 +234,22 @@ include 'config.php';
                 data:{expense_id:expense_id},
                 success:function (data) {
                     let editData = JSON.parse(data);
-                    let extra=$('#extra');
+                    // let extra=$('#extra');
                     $('#id').val(editData.id);
                     $('#name').val(editData.name);
                     $('#price').val(editData.price);
                     $('#date').val(editData.date);
-                    parseInt(editData.extra) === 1 ? extra.prop('checked', true) : extra.prop('checked', false);
+                    let category_id=editData.category_id;
+
+                    let select = $('#category-select');
+                    select.find('option').each(function () {
+                        if ($(this).val() == category_id) {
+                            $(this).prop('selected', true);
+                            return false; // Break the loop
+                        }
+                    });
+
+                    // parseInt(editData.extra) === 1 ? extra.prop('checked', true) : extra.prop('checked', false);
 
                 },
                 error: function (error) {
@@ -253,9 +270,6 @@ include 'config.php';
         }
          $(document).ready( function () {
              $('.myTable').DataTable({
-              // "columnDefs": [
-              //        { "orderable": false, "targets": [4] }
-              //    ],
                  "order": [[0, "desc"]]
 
              });

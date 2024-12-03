@@ -2,14 +2,14 @@
 include 'config.php';
 if ($connection) {
     if (isset($_GET['action']) && $_GET['action'] != '') {
-        $action = $_GET['action'];
-        switch ($action) {
+        switch ($_GET['action']) {
             case 'insert':
                 $name=$_REQUEST['name'];
                 $price=$_REQUEST['price'];
+                $category_id=$_REQUEST['category'];
                 $date=$_REQUEST['date']==''?date('Y-m-d'):$_REQUEST['date'];
-                $extra=($_REQUEST['extra']=='on' || $_REQUEST['extra']==1)?1:0;
-             $sql=mysqli_query($connection, 'INSERT INTO `expenses` (`name`, `price`, `date`,`extra`) VALUES ( "'.$name.'","'.$price.'" ,"'.$date.'","'.$extra.'")');
+//                $extra=($_REQUEST['extra']=='on' || $_REQUEST['extra']==1)?1:0;
+             $sql=mysqli_query($connection, 'INSERT INTO `expenses` (`name`, `price`, `date`,`category_id`) VALUES ( "'.$name.'","'.$price.'" ,"'.$date.'",'.$category_id.')');
              if($sql){
                  echo '<script>window.location.href="index.php"</script>';
              }else{
@@ -31,8 +31,9 @@ if ($connection) {
                 $name=$_POST['name'];
                 $price=$_POST['price'];
                 $date=$_POST['date'];
-                $extra=($_POST['extra']=='on')?1:0;
-                $sql=mysqli_query($connection,'UPDATE expenses SET `name` = "'.$name.'", `price` = "'.$price.'", date="'.$date.'", extra="'.$extra.'"  WHERE id='.$id);
+                $category_id=$_POST['category'];
+//                $extra=($_POST['extra']=='on')?1:0;
+                $sql=mysqli_query($connection,'UPDATE expenses SET `name` = "'.$name.'", `price` = "'.$price.'", date="'.$date.'", category_id='.$category_id.'  WHERE id='.$id);
                 if($sql){
                     echo '<script>window.location.href="index.php"</script>';
                 }else{
@@ -48,6 +49,9 @@ if ($connection) {
                     echo 'Cannot Deleted';
                 }
             break;
+            default:
+                echo 'No action selected';
+                break;
         }
     }
 }else{
