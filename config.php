@@ -1,5 +1,11 @@
 <?php
 $connection=mysqli_connect('localhost','root','','my_expense');
+if ($connection) {
+
+}else{
+    echo 'Error:'.mysqli_connect_error();
+    exit();
+}
 $limit=33000;
 date_default_timezone_set('Asia/Karachi');
 error_reporting(0);

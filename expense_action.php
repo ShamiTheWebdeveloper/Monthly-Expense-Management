@@ -1,6 +1,6 @@
 <?php
 include 'config.php';
-if ($connection) {
+
     if (isset($_GET['action']) && $_GET['action'] != '') {
         switch ($_GET['action']) {
             case 'insert':
@@ -54,6 +54,4 @@ if ($connection) {
                 break;
         }
     }
-}else{
-    echo 'Error:'.mysqli_connect_error();
-}
+

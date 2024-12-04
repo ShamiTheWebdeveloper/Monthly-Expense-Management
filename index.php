@@ -1,4 +1,5 @@
-<?php include 'config.php'; ?>
+<?php global $connection;
+include 'config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,6 +98,9 @@
     </div>
 </div>
 
+
+
+
 <div class="container">
     <div id="one-month">
    <div class="m-3">
@@ -105,6 +109,7 @@
         <div style="margin-bottom: 5rem">
             <button class="btn btn-warning" onclick="all_mon()" style="float: right;">Months total expenses</button>
             <button type="button" class="btn btn-primary mx-2 " style="float: right;"  data-bs-toggle="modal" data-bs-target="#addModal">Add New</button>
+            <button type="button" class="btn btn-success mx-2 " style="float: right;"  data-bs-toggle="modal" data-bs-target="#show-total">Total</button>
         </div>
    <div class="my-2">
 
@@ -121,12 +126,14 @@
            </thead>
            <tbody>
            <?php
-            $sql=mysqli_query($connection,$sql3="select e.id,e.category_id,e.price,e.date,e.name as e_name,c.name as c_name from expenses e left join categories c on e.category_id=c.id WHERE e.date BETWEEN DATE_FORMAT(NOW(), '%Y-%m-01') AND LAST_DAY(NOW()) ORDER BY e.date");
+            $sql=mysqli_query($connection,"select e.id,e.category_id,e.price,e.date,e.name as e_name,c.name as c_name from expenses e left join categories c on e.category_id=c.id WHERE e.date BETWEEN DATE_FORMAT(NOW(), '%Y-%m-01') AND LAST_DAY(NOW()) ORDER BY e.date");
             $num=1;
+            $total_by_category=[];
             $total=0;
             $total_extra=0;
             while ($row=mysqli_fetch_array($sql)):
                 if ($row['c_name']=='' || $row['c_name']==null) $row['c_name']='Other';
+
            ?>
            <tr>
                <td><?= $num ?></td>
@@ -142,43 +149,39 @@
 
            </tr>
            <?php
-                if ($row['extra']==1){
-                    $total_extra +=$row['price'];
-                }
                 $total +=$row['price'];
+                $total_by_category[$row['c_name']]+=$row['price'];
 
                 $num++;
             endwhile;
+            $total_by_category['<b>Total</b>']='<b>'.array_sum($total_by_category).'</b>';
            ?>
 
 
            </tbody>
-           <tr>
-               <td colspan="2" class="text-center">
-                   <b>Total Extra Expense:</b>
-               </td>
-               <td>
-                   <b ><?= $total_extra ?>/-</b>
-               </td>
-           </tr>
-           <tr>
-               <td colspan="2" class="text-center">
-                   <b >Total Expense: </b>
-               </td>
-               <td>
-                   <b class="<?= $total>=$limit ? 'text-danger':'' ?>"> <?= $total ?>/-</b>
-               </td>
-           </tr>
-
        </table>
 
    </div>
-
     <div>
 
     </div>
-        <div>
-
+        <div class="modal fade" id="show-total" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Total Expenses of <?= date('F') ?></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <?php foreach ($total_by_category as $key=>$value): ?>
+                            <div class="col-6 my-2"><?= $key ?>:</div>
+                            <div class="col-6 my-2"><?= $value ?>/-</div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div id="all-months">
@@ -190,7 +193,6 @@
         $sql2 = "
     SELECT 
         DATE_FORMAT(date, '%Y-%m') AS month,
-        SUM(CASE WHEN extra = 1 THEN price ELSE 0 END) AS extra_expense,
         SUM(price) AS total_expense
     FROM 
         expenses
@@ -204,13 +206,13 @@
         $result2 = $connection->query($sql2);
 
         if ($result2->num_rows > 0) {
-            echo "<table class='table table-hover myTable'><thead><tr><th>Month</th><th>Extra Expense</th><th>Total Expense</th></tr></thead><tbody>";
+            echo "<table class='table table-hover myTable'><thead><tr><th>Month</th><th>Total Expense</th></tr></thead><tbody>";
 
             $price = 0;
             $extra = 0;
             while ($row2 = $result2->fetch_assoc()) {
                 $text_danger=$row2['total_expense']>=$limit? 'text-danger':'';
-                echo "<tr><td>" . date('M Y',strtotime($row2["month"])) . "</td><td>" . $row2['extra_expense'] . "/-</td><td class='".$text_danger."'>" . $row2['total_expense'] . "/-</td></tr>";
+                echo "<tr><td>" . date('M Y',strtotime($row2["month"])) . "</td><td class='".$text_danger."'>" . $row2['total_expense'] . "/-</td></tr>";
             }
 
             echo "</tbody></table>";
@@ -245,12 +247,9 @@
                     select.find('option').each(function () {
                         if ($(this).val() == category_id) {
                             $(this).prop('selected', true);
-                            return false; // Break the loop
+                            return false;
                         }
                     });
-
-                    // parseInt(editData.extra) === 1 ? extra.prop('checked', true) : extra.prop('checked', false);
-
                 },
                 error: function (error) {
                     alert('Error: '+error);
