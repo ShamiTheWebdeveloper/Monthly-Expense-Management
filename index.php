@@ -1,4 +1,4 @@
-<?php global $connection;
+<?php global $connection, $limit;
 include 'config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -154,7 +154,8 @@ include 'config.php'; ?>
 
                 $num++;
             endwhile;
-            $total_by_category['<b>Total</b>']='<b>'.array_sum($total_by_category).'</b>';
+            $limit_class=array_sum($total_by_category)>$limit?'class="text-danger"':'';
+            if(!empty($total_by_category)) $total_by_category['<b>Total</b>']='<b '.$limit_class.'>'.array_sum($total_by_category).'</b>';
            ?>
 
 
@@ -169,7 +170,7 @@ include 'config.php'; ?>
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Total Expenses of <?= date('F') ?></h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Total Expenses of <?= date('F Y') ?></h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">

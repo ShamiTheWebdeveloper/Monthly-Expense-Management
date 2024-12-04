@@ -33,7 +33,7 @@ CREATE TABLE `expenses` (
   `price` bigint NOT NULL,
   `date` date NOT NULL,
   `extra` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Dumping data for table `expenses`
