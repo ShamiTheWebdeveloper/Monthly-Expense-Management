@@ -3,7 +3,7 @@ $connection=mysqli_connect('localhost','root','','my_expense');
 if ($connection) {
 
 }else{
-    echo 'Error:'.mysqli_connect_error();
+    echo 'Error:'.$connection->connect_error;
     exit();
 }
 $limit=33000;

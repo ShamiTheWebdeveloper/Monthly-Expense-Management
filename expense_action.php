@@ -1,4 +1,5 @@
 <?php
+global $connection;
 include 'config.php';
 
     if (isset($_GET['action']) && $_GET['action'] != '') {
@@ -8,7 +9,6 @@ include 'config.php';
                 $price=$_REQUEST['price'];
                 $category_id=$_REQUEST['category'];
                 $date=$_REQUEST['date']==''?date('Y-m-d'):$_REQUEST['date'];
-//                $extra=($_REQUEST['extra']=='on' || $_REQUEST['extra']==1)?1:0;
              $sql=mysqli_query($connection, 'INSERT INTO `expenses` (`name`, `price`, `date`,`category_id`) VALUES ( "'.$name.'","'.$price.'" ,"'.$date.'",'.$category_id.')');
              if($sql){
                  echo '<script>window.location.href="index.php"</script>';
@@ -32,7 +32,6 @@ include 'config.php';
                 $price=$_POST['price'];
                 $date=$_POST['date'];
                 $category_id=$_POST['category'];
-//                $extra=($_POST['extra']=='on')?1:0;
                 $sql=mysqli_query($connection,'UPDATE expenses SET `name` = "'.$name.'", `price` = "'.$price.'", date="'.$date.'", category_id='.$category_id.'  WHERE id='.$id);
                 if($sql){
                     echo '<script>window.location.href="index.php"</script>';
