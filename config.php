@@ -1,5 +1,5 @@
 <?php
-$connection=mysqli_connect('localhost','root','','my_expense');
+$connection=mysqli_connect(getenv('DB_HOST'),getenv('DB_USERNAME'),getenv('DB_PASSWORD'),getenv('DB_NAME'));
 if ($connection) {
 
 }else{
@@ -8,7 +8,7 @@ if ($connection) {
 }
 $limit=33000;
 date_default_timezone_set('Asia/Karachi');
-//error_reporting(0);
+error_reporting(0);
 
 function get_categories($id=0): array
 {
