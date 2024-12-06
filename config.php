@@ -8,7 +8,7 @@ if ($connection) {
 }
 $limit=33000;
 date_default_timezone_set('Asia/Karachi');
-error_reporting(0);
+//error_reporting(0);
 
 function get_categories($id=0): array
 {
