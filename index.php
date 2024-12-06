@@ -107,8 +107,8 @@ include 'config.php'; ?>
        <h3 class="text-center">My Monthly Expenses</h3>
    </div>
         <div style="margin-bottom: 5rem">
-            <button class="btn btn-warning" onclick="all_mon()" style="float: right;">Months total expenses</button>
             <button type="button" class="btn btn-primary mx-2 " style="float: right;"  data-bs-toggle="modal" data-bs-target="#addModal">Add New</button>
+            <button class="btn btn-warning" onclick="all_mon()" style="float: right;">Months total expenses</button>
             <button type="button" class="btn btn-success mx-2 " style="float: right;"  data-bs-toggle="modal" data-bs-target="#show-total">Total</button>
         </div>
    <div class="my-2">
