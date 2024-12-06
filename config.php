@@ -1,5 +1,6 @@
 <?php
-$connection=mysqli_connect(env('DB_HOST'),env('DB_USERNAME'),env('DB_PASSWORD'),env('DB_NAME'));
+include 'db.php';
+$connection=mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
 if ($connection) {
 
 }else{

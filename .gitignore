@@ -1,4 +1,4 @@
 .idea
-.env
+db.php
 dev.ini
 git-deploy
