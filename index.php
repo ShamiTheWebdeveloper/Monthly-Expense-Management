@@ -1,7 +1,7 @@
 <?php global $connection, $limit;
 include 'config.php'; ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <title>My Expenses</title>
     <meta charset="utf-8">
@@ -255,12 +255,8 @@ include 'config.php'; ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 <script>
-    let prefers = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    let html = document.querySelector('html');
-    html.classList.add(prefers);
-    html.setAttribute('data-bs-theme', prefers);
 
-    function editRecord(expense_id,button) {
+        function editRecord(expense_id,button) {
             $(button).html('<div class="spinner-border text-primary" role="status"> <span class="visually-hidden">Loading...</span> </div>');
             $.ajax({
                 url:"expense_action.php?action=edit",
