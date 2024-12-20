@@ -141,7 +141,7 @@ include 'config.php'; ?>
 <div class="container">
     <div id="one-month">
    <div class="m-3">
-       <h3 class="text-center">My Monthly Expenses</h3>
+       <h3 class="text-center">My Expenses of <?= date('F Y') ?></h3>
    </div>
         <div style="margin-bottom: 5rem">
             <button type="button" class="btn btn-primary mx-2 " style="float: right;"  data-bs-toggle="modal" data-bs-target="#addModal">Add New</button>
