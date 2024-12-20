@@ -1,14 +1,50 @@
 <?php global $connection, $limit;
 include 'config.php'; ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <title>My Expenses</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+    <style>
+        @media screen and (max-width: 600px) {
 
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+            }
+
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            tr {
+                margin-bottom: 20px;
+                border: 1px solid #ddd;
+            }
+
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td:before {
+                position: absolute;
+                left: 6px;
+                content: attr(data-label);
+                font-weight: bold;
+            }
+        }
+    </style>
 </head>
 <body>
 <!-- Modal -->
@@ -38,12 +74,6 @@ include 'config.php'; ?>
                      <label>Select Category:</label>
                      <?= make_select(get_categories(),'category','','class="form-control"') ?>
                  </div>
-<!--                 <div class="my-3">-->
-<!--                     <label>check if your expense is extra</label>-->
-<!--                     <label>-->
-<!--                         <input type="checkbox" name="extra" class="">-->
-<!--                     </label>-->
-<!--                 </div>-->
              </div>
 
             <div class="modal-footer">
@@ -81,10 +111,6 @@ include 'config.php'; ?>
                     <div class="my-3">
                         <label>Select Category:</label>
                         <?= make_select(get_categories(),'category','','class="form-control" id="category-select"') ?>
-<!--                        <label>check if your expense is extra</label>-->
-<!--                        <label>-->
-<!--                            <input type="checkbox" id="extra" name="extra" >-->
-<!--                        </label>-->
                     </div>
 
                 </div>
