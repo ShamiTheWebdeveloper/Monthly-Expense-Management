@@ -30,7 +30,7 @@ include 'config.php'; ?>
 
             .current-month-table tr {
                 margin-bottom: 20px;
-                border: 1px solid #ddd;
+                border: 5px solid #ddd;
             }
 
             .current-month-table td {
