@@ -40,7 +40,7 @@ include 'config.php'; ?>
             }
 
             .current-month-table td:before {
-                margin-right: 50px;
+                margin-right: 45px;
                 content: attr(data-label);
                 font-weight: bold;
             }
@@ -133,10 +133,16 @@ include 'config.php'; ?>
    <div class="m-3">
        <h3 class="text-center">My Expenses of <?= date('F Y') ?></h3>
    </div>
-        <div style="margin-bottom: 5rem">
-            <button type="button" class="btn btn-primary mx-2 " style="float: right;"  data-bs-toggle="modal" data-bs-target="#addModal">Add New</button>
-            <button class="btn btn-warning" onclick="all_mon()" style="float: right;">Months total expenses</button>
-            <button type="button" class="btn btn-success mx-2 " style="float: right;"  data-bs-toggle="modal" data-bs-target="#show-total">Total</button>
+        <div class="my-4">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-primary mx-2 " data-bs-toggle="modal" data-bs-target="#addModal">Add New</button>
+                    <button class="btn btn-warning" onclick="all_mon()">Months total expenses</button>
+                    <button type="button" class="btn btn-success mx-2 " data-bs-toggle="modal" data-bs-target="#show-total">Total</button>
+                </div>
+            </div>
         </div>
    <div class="my-2 ">
 
