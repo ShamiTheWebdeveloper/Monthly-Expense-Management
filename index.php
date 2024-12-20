@@ -143,7 +143,7 @@ include 'config.php'; ?>
                <td><?= date('D, d M Y',strtotime($row['date'])) ?></td>
                <td>
                    <a href="expense_action.php?action=insert&name=<?= $row['e_name'] ?>&price=<?= $row['price'] ?>&category=<?= $row['category_id'] ?>" class="btn btn-warning">Copy</a>
-                   <button type="button" class="btn btn-info" onclick="editRecord(<?= $row['id'] ?>)" data-bs-toggle="modal"  data-bs-target="#editModal">Edit</button>
+                   <button type="button" class="btn btn-info" onclick="editRecord(<?= $row['id'] ?>,this)" >Edit</button>
                    <a onclick=" confirm('Are you sure you want to delete?')? href='expense_action.php?action=delete&&id=<?= $row['id'] ?>':''" class="btn btn-danger">Delete</a>
                </td>
 
@@ -229,8 +229,9 @@ include 'config.php'; ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 <script>
-         let expense_id;
-        function editRecord(expense_id) {
+
+        function editRecord(expense_id,button) {
+            $(button).html('<div class="spinner-border text-primary" role="status"> <span class="visually-hidden">Loading...</span> </div>');
             $.ajax({
                 url:"expense_action.php?action=edit",
                 type:"post",
@@ -251,9 +252,15 @@ include 'config.php'; ?>
                             return false;
                         }
                     });
+                    let myModal = new bootstrap.Modal(document.getElementById('editModal'), {
+                        keyboard: false,
+                        backdrop: 'static'
+                    });
+                    myModal.show();
+                    $(button).html('Edit');
                 },
                 error: function (error) {
-                    alert('Error: '+error);
+                    console.log('Error: '+error);
                 }
             });
         }
