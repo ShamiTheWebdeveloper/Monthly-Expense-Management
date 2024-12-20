@@ -9,47 +9,37 @@ include 'config.php'; ?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
     <style>
-        table {
-            width: 100%;
-            /*border-collapse: collapse;*/
-        }
-
-        /*th,*/
-        /*td {*/
-        /*    padding: 8px;*/
-        /*    border: 1px solid #ddd;*/
-        /*}*/
         @media screen and (max-width: 600px) {
-            table{
+            table.current-month-table{
                 padding: 34px 0;
             }
-            table,
-            thead,
-            tbody,
-            th,
-            td,
-            tr {
+            table.current-month-table,
+           .current-month-table thead,
+            .current-month-table tbody,
+            .current-month-table th,
+            .current-month-table td,
+            .current-month-table tr {
                 display: block;
             }
 
-            thead tr {
+            .current-month-table thead tr {
                 position: absolute;
                 top: -9999px;
                 left: -9999px;
             }
 
-            tr {
+            .current-month-table tr {
                 margin-bottom: 20px;
                 border: 1px solid #ddd;
             }
 
-            td {
+            .current-month-table td {
                 border: none;
                 position: relative;
                 padding-left: 50%;
             }
 
-            td:before {
+            .current-month-table td:before {
                 margin-right: 50px;
                 content: attr(data-label);
                 font-weight: bold;
@@ -150,7 +140,7 @@ include 'config.php'; ?>
         </div>
    <div class="my-2 ">
 
-       <table id="myTable" class="table table-hover myTable">
+       <table id="myTable" class="current-month-table table table-hover myTable">
            <thead>
            <tr>
                <th>No.</th>
@@ -181,7 +171,7 @@ include 'config.php'; ?>
                <td data-label="Actions:">
                    <a href="expense_action.php?action=insert&name=<?= $row['e_name'] ?>&price=<?= $row['price'] ?>&category=<?= $row['category_id'] ?>" class="btn btn-warning">Copy</a>
                    <button type="button" class="btn btn-info" onclick="editRecord(<?= $row['id'] ?>,this)" >Edit</button>
-                   <a onclick=" confirm('Are you sure that you want to delete the item <?= $row['e_name'] ?> ?')? href='expense_action.php?action=delete&&id=<?= $row['id'] ?>':''" class="btn btn-danger">Delete</a>
+                   <a onclick=" confirm('Are you sure that you want to delete the item <?= $row['e_name'] ?>?')? href='expense_action.php?action=delete&&id=<?= $row['id'] ?>':''" class="btn btn-danger">Delete</a>
                </td>
 
            </tr>
