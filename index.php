@@ -181,7 +181,7 @@ include 'config.php'; ?>
                <td data-label="Actions:">
                    <a href="expense_action.php?action=insert&name=<?= $row['e_name'] ?>&price=<?= $row['price'] ?>&category=<?= $row['category_id'] ?>" class="btn btn-warning">Copy</a>
                    <button type="button" class="btn btn-info" onclick="editRecord(<?= $row['id'] ?>,this)" >Edit</button>
-                   <a onclick=" confirm('Are you sure you want to delete?')? href='expense_action.php?action=delete&&id=<?= $row['id'] ?>':''" class="btn btn-danger">Delete</a>
+                   <a onclick=" confirm('Are you sure that you want to delete the item <?= $row['e_name'] ?> ?')? href='expense_action.php?action=delete&&id=<?= $row['id'] ?>':''" class="btn btn-danger">Delete</a>
                </td>
 
            </tr>
