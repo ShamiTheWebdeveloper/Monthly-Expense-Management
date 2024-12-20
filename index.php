@@ -9,8 +9,20 @@ include 'config.php'; ?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
     <style>
-        @media screen and (max-width: 600px) {
+        table {
+            width: 100%;
+            /*border-collapse: collapse;*/
+        }
 
+        /*th,*/
+        /*td {*/
+        /*    padding: 8px;*/
+        /*    border: 1px solid #ddd;*/
+        /*}*/
+        @media screen and (max-width: 600px) {
+            table{
+                padding: 34px 0;
+            }
             table,
             thead,
             tbody,
@@ -38,8 +50,7 @@ include 'config.php'; ?>
             }
 
             td:before {
-                position: absolute;
-                left: 6px;
+                margin-right: 50px;
                 content: attr(data-label);
                 font-weight: bold;
             }
@@ -137,7 +148,7 @@ include 'config.php'; ?>
             <button class="btn btn-warning" onclick="all_mon()" style="float: right;">Months total expenses</button>
             <button type="button" class="btn btn-success mx-2 " style="float: right;"  data-bs-toggle="modal" data-bs-target="#show-total">Total</button>
         </div>
-   <div class="my-2">
+   <div class="my-2 ">
 
        <table id="myTable" class="table table-hover myTable">
            <thead>
@@ -162,12 +173,12 @@ include 'config.php'; ?>
 
            ?>
            <tr>
-               <td><?= $num ?></td>
-               <td><?= $row['e_name'] ?></td>
-               <td><?= $row['c_name'] ?></td>
-               <td><?= $row['price'] ?></td>
-               <td><?= date('D, d M Y',strtotime($row['date'])) ?></td>
-               <td>
+               <td data-label="No."><?= $num ?></td>
+               <td data-label="Name:"><?= $row['e_name'] ?></td>
+               <td data-label="Category:"><?= $row['c_name'] ?></td>
+               <td data-label="Price:"><?= $row['price'] ?></td>
+               <td data-label="Date:"><?= date('D, d M Y',strtotime($row['date'])) ?></td>
+               <td data-label="Actions:">
                    <a href="expense_action.php?action=insert&name=<?= $row['e_name'] ?>&price=<?= $row['price'] ?>&category=<?= $row['category_id'] ?>" class="btn btn-warning">Copy</a>
                    <button type="button" class="btn btn-info" onclick="editRecord(<?= $row['id'] ?>,this)" >Edit</button>
                    <a onclick=" confirm('Are you sure you want to delete?')? href='expense_action.php?action=delete&&id=<?= $row['id'] ?>':''" class="btn btn-danger">Delete</a>
