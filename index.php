@@ -137,7 +137,7 @@ include 'config.php'; ?>
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4"></div>
-                <div class="col-md-4 text-lg-end text-md-end text-sm-center text-xs-center">
+                <div class="col-md-4 text-lg-end text-md-end text-center">
                     <button type="button" class="btn btn-primary mx-lg-2 mx-md-2 mx-sm-1 mx-xs-1" data-bs-toggle="modal" data-bs-target="#addModal">Add New</button>
                     <button class="btn btn-warning" onclick="all_mon()">Expense by Month</button>
                     <button type="button" class="btn btn-success mx-lg-2 mx-md-2 mx-sm-1 mx-xs-1 " data-bs-toggle="modal" data-bs-target="#show-total">Total</button>
