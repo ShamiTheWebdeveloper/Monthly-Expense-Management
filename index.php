@@ -137,10 +137,10 @@ include 'config.php'; ?>
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4"></div>
-                <div class="col-md-4">
-                    <button type="button" class="btn btn-primary mx-2 " data-bs-toggle="modal" data-bs-target="#addModal">Add New</button>
-                    <button class="btn btn-warning" onclick="all_mon()">Months total expenses</button>
-                    <button type="button" class="btn btn-success mx-2 " data-bs-toggle="modal" data-bs-target="#show-total">Total</button>
+                <div class="col-md-4 text-lg-end text-md-end text-sm-center text-xs-center">
+                    <button type="button" class="btn btn-primary mx-lg-2 mx-md-2 mx-sm-1 mx-xs-1" data-bs-toggle="modal" data-bs-target="#addModal">Add New</button>
+                    <button class="btn btn-warning" onclick="all_mon()">Expense by Month</button>
+                    <button type="button" class="btn btn-success mx-lg-2 mx-md-2 mx-sm-1 mx-xs-1 " data-bs-toggle="modal" data-bs-target="#show-total">Total</button>
                 </div>
             </div>
         </div>
@@ -203,7 +203,7 @@ include 'config.php'; ?>
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Total Expenses of <?= date('F Y') ?></h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Total Expenses of <?= date('M Y') ?></h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
