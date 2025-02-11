@@ -7,7 +7,7 @@ if ($connection) {
     echo 'Error:'.$connection->connect_error;
     exit();
 }
-$limit=33000;
+$limit=48000;
 date_default_timezone_set('Asia/Karachi');
 error_reporting(0);
 
