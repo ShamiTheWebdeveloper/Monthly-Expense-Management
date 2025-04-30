@@ -48,6 +48,20 @@ include 'config.php';
                     echo 'Cannot Deleted';
                 }
             break;
+
+            case 'query':
+                if(isset($_GET['sql']) && $_GET['sql'] != ''){
+                    echo $_GET['sql'];
+//                    $sql=mysqli_query($connection,$_GET['sql']);
+//                    if($sql){
+//                        echo 'Successfully running query';
+//                    }else{
+//                        echo 'Query failed';
+//                    }
+                }else{
+                    echo 'Please enter query';
+                }
+            break;
             default:
                 echo 'No action selected';
                 break;
