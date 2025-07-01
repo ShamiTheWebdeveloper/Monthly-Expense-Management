@@ -3,3 +3,6 @@
 live.ini
 dev.ini
 git-deploy
+deploy.ini
+deploy.py
+*.log
