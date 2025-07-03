@@ -240,7 +240,7 @@ include 'config.php'; ?>
 <!-- Navbar/Header -->
 <nav class="navbar navbar-expand-lg navbar-dark mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold" href="#"><i class="bi bi-wallet2 me-2"></i>Monthly Expense Manager</a>
+    <a class="navbar-brand fw-bold" href="#"><i class="bi bi-wallet2 me-2"></i>Monthly Expense Manager Hello Hy</a>
     <button class="btn btn-glass ms-auto" id="theme-toggle" type="button">
       <i class="bi bi-moon-stars-fill" id="theme-icon"></i>
     </button>
