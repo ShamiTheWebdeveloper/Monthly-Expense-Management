@@ -240,7 +240,7 @@ include 'config.php'; ?>
 <!-- Navbar/Header -->
 <nav class="navbar navbar-expand-lg navbar-dark mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold" href="#"><i class="bi bi-wallet2 me-2"></i>Monthly Expense Manager Hello Hy</a>
+    <a class="navbar-brand fw-bold" href="/"><i class="bi bi-wallet2 me-2"></i>Monthly Expense Manager</a>
     <button class="btn btn-glass ms-auto" id="theme-toggle" type="button">
       <i class="bi bi-moon-stars-fill" id="theme-icon"></i>
     </button>
@@ -255,7 +255,7 @@ include 'config.php'; ?>
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Add new record</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="expense_action.php?action=insert" method="post">
+            <form action="<?= ACTION_FILE ?>?action=insert" method="post">
              <div class="modal-body">
                  <div class="my-3">
                      <label>Name:</label>
@@ -292,7 +292,7 @@ include 'config.php'; ?>
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Edit record</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="expense_action.php?action=update" method="post">
+            <form action="<?= ACTION_FILE ?>?action=update" method="post">
                 <div class="modal-body">
                     <div class="my-3">
                         <label>Name:</label>
@@ -331,7 +331,7 @@ include 'config.php'; ?>
     <div id="one-month">
    <div class="glass-card card shadow mb-4 border-0">
        <div class="card-body">
-           <div class="section-title"><i class="bi bi-calendar2-week"></i>My Expenses of <?= date('F Y') ?></div>
+           <div class="section-title"><i class="bi bi-calendar2-week"></i>My Expenses of <?= isset($_GET['date_search'])?date('F Y',strtotime($_GET['date_search'])):date('F Y') ?></div>
            <div class="row mb-3">
                <div class="col-md-8"></div>
                <div class="col-md-4 text-lg-end text-md-end text-center">
@@ -354,7 +354,11 @@ include 'config.php'; ?>
                    </thead>
                    <tbody>
                    <?php
-                    $sql=mysqli_query($connection,"select e.id,e.category_id,e.price,e.date,e.name as e_name,c.name as c_name from expenses e left join categories c on e.category_id=c.id WHERE e.date BETWEEN DATE_FORMAT(NOW(), '%Y-%m-01') AND LAST_DAY(NOW()) ORDER BY e.date");
+                    $search="e.date BETWEEN DATE_FORMAT(NOW(), '%Y-%m-01') AND LAST_DAY(NOW())";
+                    if (isset($_GET['date_search'])) {
+                        $search="e.date LIKE '%".$_GET['date_search']."%'";
+                    }
+                    $sql=mysqli_query($connection,"select e.id,e.category_id,e.price,e.date,e.name as e_name,c.name as c_name from expenses e left join categories c on e.category_id=c.id WHERE ".$search." ORDER BY e.date");
                     $num=1;
                     $total_by_category=[];
                     $total=0;
@@ -370,9 +374,9 @@ include 'config.php'; ?>
                        <td data-label="Price:"><?= $row['price'] ?></td>
                        <td data-label="Date:"><?= date('D, d M Y',strtotime($row['date'])) ?></td>
                        <td data-label="Actions:">
-                           <a href="expense_action.php?action=insert&name=<?= $row['e_name'] ?>&price=<?= $row['price'] ?>&category=<?= $row['category_id'] ?>" class="btn btn-warning">Copy</a>
+                           <a href="<?= ACTION_FILE ?>?action=insert&name=<?= $row['e_name'] ?>&price=<?= $row['price'] ?>&category=<?= $row['category_id'] ?>" class="btn btn-warning">Copy</a>
                            <button type="button" class="btn btn-info" onclick="editRecord(<?= $row['id'] ?>,this)" >Edit</button>
-                           <a onclick=" confirm('Are you sure that you want to delete the item <?= $row['e_name'] ?>?')? href='expense_action.php?action=delete&&id=<?= $row['id'] ?>':''" class="btn btn-danger">Delete</a>
+                           <a onclick=" confirm('Are you sure that you want to delete the item <?= $row['e_name'] ?>?')? href='<?= ACTION_FILE ?>?action=delete&&id=<?= $row['id'] ?>':''" class="btn btn-danger">Delete</a>
                        </td>
 
                    </tr>
@@ -435,13 +439,13 @@ include 'config.php'; ?>
                 $result2 = $connection->query($sql2);
 
                 if ($result2->num_rows > 0) {
-                    echo "<div class='table-responsive'><table class='glass-table table table-hover table-striped myTable align-middle'><thead class='table-dark'><tr><th>Month</th><th>Total Expense</th></tr></thead><tbody>";
+                    echo "<div class='table-responsive'><table class='glass-table table table-hover table-striped myTable align-middle'><thead class='table-dark'><tr><th>Month</th><th>Total Expense</th><th>Action</th></tr></thead><tbody>";
 
                     $price = 0;
                     $extra = 0;
                     while ($row2 = $result2->fetch_assoc()) {
                         $text_danger=$row2['total_expense']>=$limit? 'text-danger fw-bold':'fw-bold';
-                        echo "<tr><td>" . date('M Y',strtotime($row2["month"])) . "</td><td class='".$text_danger."'>" . $row2['total_expense'] . "/-</td></tr>";
+                        echo "<tr><td>" . date('M Y',strtotime($row2["month"])) . "</td><td class='".$text_danger."'>" . $row2['total_expense'] . "/-</td> <td class='".$text_danger."'><a href='?date_search=".date('Y-m',strtotime($row2["month"]))."' class='btn btn-light'>Full Report</a></td></tr>";
                     }
 
                     echo "</tbody></table></div>";
@@ -501,7 +505,7 @@ include 'config.php'; ?>
         function editRecord(expense_id,button) {
             $(button).html('<div class="spinner-border text-primary" role="status"> <span class="visually-hidden">Loading...</span> </div>');
             $.ajax({
-                url:"expense_action.php?action=edit",
+                url:"<?= ACTION_FILE ?>?action=edit",
                 type:"post",
                 data:{expense_id:expense_id},
                 success:function (data) {

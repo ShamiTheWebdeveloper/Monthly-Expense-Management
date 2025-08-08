@@ -8,6 +8,7 @@ if ($connection) {
     exit();
 }
 $limit=42000;
+define('ACTION_FILE','expense_action.php');
 date_default_timezone_set('Asia/Karachi');
 error_reporting(0);
 
