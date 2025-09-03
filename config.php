@@ -7,7 +7,7 @@ if ($connection) {
     echo 'Error:'.$connection->connect_error;
     exit();
 }
-$limit=42000;
+$limit=50000;
 define('ACTION_FILE','expense_action.php');
 date_default_timezone_set('Asia/Karachi');
 error_reporting(0);
