@@ -240,7 +240,7 @@ include 'config.php'; ?>
 <!-- Navbar/Header -->
 <nav class="navbar navbar-expand-lg navbar-dark mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold" href="/"><i class="bi bi-calendar2-week"></i>My Expenses of <?= GLOBAL_DATE ?>
+      <a class="navbar-brand fw-bold" href="/"><i class="bi bi-calendar2-week"></i>My Expenses of <?= GLOBAL_DATE ?></a>
     <button class="btn btn-glass ms-auto" id="theme-toggle" type="button">
       <i class="bi bi-moon-stars-fill" id="theme-icon"></i>
     </button>
@@ -331,7 +331,7 @@ include 'config.php'; ?>
     <div id="one-month">
    <div class="glass-card card shadow mb-4 border-0">
        <div class="card-body">
-<!--           <div class="section-title"><i class="bi bi-calendar2-week"></i>My Expenses of --><?php //= GLOBAL_DATE ?><!--</div>-->
+           <div class="section-title"><i class="bi bi-calendar2-week"></i>My Expenses of <?= GLOBAL_DATE ?></div>
            <div class="row mb-3">
                <div class="col-md-8"></div>
                <div class="col-md-4 text-lg-end text-md-end text-center">
