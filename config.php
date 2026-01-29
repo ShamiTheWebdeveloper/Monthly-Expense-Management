@@ -7,8 +7,9 @@ if ($connection) {
     echo 'Error:'.$connection->connect_error;
     exit();
 }
-$limit=50000;
-define('ACTION_FILE','expense_action.php');
+$limit=52000;
+const ACTION_FILE = 'expense_action.php';
+define("GLOBAL_DATE", isset($_GET['date_search']) ? date('F Y', strtotime($_GET['date_search'])) : date('F Y'));
 date_default_timezone_set('Asia/Karachi');
 error_reporting(0);
 

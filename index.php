@@ -240,7 +240,7 @@ include 'config.php'; ?>
 <!-- Navbar/Header -->
 <nav class="navbar navbar-expand-lg navbar-dark mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold" href="/"><i class="bi bi-wallet2 me-2"></i>Monthly Expense Manager</a>
+    <a class="navbar-brand fw-bold" href="/"><i class="bi bi-calendar2-week"></i>My Expenses of <?= GLOBAL_DATE ?>
     <button class="btn btn-glass ms-auto" id="theme-toggle" type="button">
       <i class="bi bi-moon-stars-fill" id="theme-icon"></i>
     </button>
@@ -331,7 +331,7 @@ include 'config.php'; ?>
     <div id="one-month">
    <div class="glass-card card shadow mb-4 border-0">
        <div class="card-body">
-           <div class="section-title"><i class="bi bi-calendar2-week"></i>My Expenses of <?= isset($_GET['date_search'])?date('F Y',strtotime($_GET['date_search'])):date('F Y') ?></div>
+<!--           <div class="section-title"><i class="bi bi-calendar2-week"></i>My Expenses of --><?php //= GLOBAL_DATE ?><!--</div>-->
            <div class="row mb-3">
                <div class="col-md-8"></div>
                <div class="col-md-4 text-lg-end text-md-end text-center">
@@ -403,7 +403,7 @@ include 'config.php'; ?>
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header bg-success text-white">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-cash-coin me-2"></i>Total Expenses of <?= date('M Y') ?></h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-cash-coin me-2"></i>Total Expenses of <?= GLOBAL_DATE ?></h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
