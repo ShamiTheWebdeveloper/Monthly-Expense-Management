@@ -240,7 +240,7 @@ include 'config.php'; ?>
 <!-- Navbar/Header -->
 <nav class="navbar navbar-expand-lg navbar-dark mb-4">
   <div class="container-fluid">
-      <a class="navbar-brand fw-bold" href="/"><i class="bi bi-calendar2-week"></i>&nbsp;&nbsp;My Expenses of <?= GLOBAL_DATE ?></a>
+      <a class="navbar-brand fw-bold" href="/"><i class="bi bi-calendar2-week"></i>&nbsp;&nbsp;Expenses of <?= GLOBAL_DATE ?></a>
     <button class="btn btn-glass ms-auto" id="theme-toggle" type="button">
       <i class="bi bi-moon-stars-fill" id="theme-icon"></i>
     </button>
