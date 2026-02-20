@@ -11,7 +11,7 @@ $limit=52000;
 const ACTION_FILE = 'expense_action.php';
 define("GLOBAL_DATE", isset($_GET['date_search']) ? date('F Y', strtotime($_GET['date_search'])) : date('F Y'));
 date_default_timezone_set('Asia/Karachi');
-error_reporting(0);
+error_reporting(E_ALL);
 
 function get_categories($id=0): array
 {
