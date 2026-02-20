@@ -1,10 +1,11 @@
 .idea
 #db.php
+config.php
 live.ini
 dev.ini
 git-deploy
 deploy.ini
 deploy.py
-.htaccess
-.htpasswd
+#.htaccess
+#.htpasswd
 *.log
