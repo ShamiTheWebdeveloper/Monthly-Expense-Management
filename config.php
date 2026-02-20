@@ -1,5 +1,5 @@
-@@ -1,44 +0,0 @@
 <?php
+//error_reporting(E_ALL);
 include 'db.php';
 $connection=mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
 if ($connection) {
@@ -12,7 +12,6 @@ $limit=52000;
 const ACTION_FILE = 'expense_action.php';
 define("GLOBAL_DATE", isset($_GET['date_search']) ? date('F Y', strtotime($_GET['date_search'])) : date('F Y'));
 date_default_timezone_set('Asia/Karachi');
-error_reporting(E_ALL);
 
 function get_categories($id=0): array
 {
