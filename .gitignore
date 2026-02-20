@@ -1,6 +1,5 @@
 .idea
-#db.php
-config.php
+db.php
 live.ini
 dev.ini
 git-deploy
